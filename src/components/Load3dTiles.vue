@@ -38,11 +38,30 @@ onMounted(async () => {
   });
   viewer.scene.globe.depthTestAgainstTerrain = true;
   const tileset: Cesium3DTileset = await Cesium.Cesium3DTileset.fromUrl(
-    "/data/全_3dt/tileset.json"
+    "/data/d1/tileset.json"
   );
 
   viewer.scene.primitives.add(tileset);
   viewer.zoomTo(tileset);
+  // 获取tileset的外包围球中心点
+  // const boundingSphere = tileset.boundingSphere;
+  // console.log(boundingSphere);
+  // const center = boundingSphere.center;
+
+  // // 将相机飞到模型周围
+  // viewer.camera.flyTo({
+  //   destination: Cesium.Cartesian3.add(
+  //     center,
+  //     new Cesium.Cartesian3(0, 0, 0),
+  //     new Cesium.Cartesian3()
+  //   ), // 向上或侧面偏移一点
+  //   duration: 2, // 飞到的动画时长
+  //   orientation: {
+  //     heading: Cesium.Math.toRadians(0),
+  //     pitch: Cesium.Math.toRadians(-90),
+  //     roll: 0,
+  //   },
+  // });
 
   changeRange = () => {
     let height = Number(rangeRef.value!.value);
