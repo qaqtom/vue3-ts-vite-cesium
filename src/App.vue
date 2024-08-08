@@ -1,10 +1,8 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import Load3dTiles from "./components/Load3dTiles.vue";
 </script>
 
-<template>
-  <HelloWorld />
-</template>
+<template><Load3dTiles /></template>
 
 <style>
 html,
