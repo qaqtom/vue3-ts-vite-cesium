@@ -1,8 +1,12 @@
 <script setup>
 import Load3dTiles from "./components/Load3dTiles.vue";
+import RainAndSnow from "./components/RainAndSnow.vue";
 </script>
 
-<template><Load3dTiles /></template>
+<template>
+  <!-- <Load3dTiles /> -->
+  <RainAndSnow />
+</template>
 
 <style>
 html,
