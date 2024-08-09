@@ -11,7 +11,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import * as Cesium from "cesium";
-import type { Cartesian3, Matrix4, ParticleSystem, Particle } from "cesium";
+import type {
+  Cartesian3,
+  Matrix4,
+  ParticleSystem,
+  Particle,
+  Entity,
+} from "cesium";
+
 
 const position: Cartesian3 = Cesium.Cartesian3.fromDegrees(
   114.39664,
@@ -50,12 +57,44 @@ const selectRef = ref<HTMLSelectElement>();
 let handleOnchange: () => void;
 
 onMounted(async () => {
+  const terrainModel =await Cesium.createWorldTerrainAsync()
   const viewer = new Cesium.Viewer("cesiumContainer", {
     infoBox: false,
     shouldAnimate: true,
+    terrainProvider:terrainModel
   });
   viewer.scene.globe.depthTestAgainstTerrain = true;
 
+  //生成点
+  var point: Entity = viewer.entities.add({
+    // 定位点
+    position,
+    // 点
+    point: {
+      pixelSize: 10,
+      color: Cesium.Color.RED,
+      outlineColor: Cesium.Color.WHITE,
+      outlineWidth: 4,
+    },
+  });
+
+  //生成圆
+  const redEllipse = viewer.entities.add({
+    position,
+    name: "Red ellipse on surface",
+    ellipse: {
+      semiMinorAxis: snowRadius,
+      semiMajorAxis: snowRadius,
+      material: new Cesium.StripeMaterialProperty({
+        orientation: Cesium.StripeOrientation.VERTICAL,
+        evenColor: Cesium.Color.WHITE,
+        repeat: 16
+      }),
+      classificationType: Cesium.ClassificationType.BOTH,
+      extrudedHeight:10000
+    },
+  });
+  
   type ParticleSystemType = ConstructorParameters<typeof ParticleSystem>[0];
   const snowOption: ParticleSystemType = {
     modelMatrix: modelMatrix,

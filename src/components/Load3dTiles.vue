@@ -36,12 +36,16 @@ onMounted(async () => {
     infoBox: false,
     shouldAnimate: true,
   });
-  viewer.scene.globe.depthTestAgainstTerrain = true;
-  const tileset: Cesium3DTileset = await Cesium.Cesium3DTileset.fromUrl(
-    "/data/d1/tileset.json"
-  );
+  // viewer.scene.globe.depthTestAgainstTerrain = true;
+  const modelMatrix = Cesium.Matrix4.fromArray([
+    1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+  ]);
 
-  viewer.scene.primitives.add(tileset);
+  const tileset: Cesium3DTileset = await Cesium.Cesium3DTileset.fromUrl(
+    "/data/d1/tileset.json",
+    { modelMatrix,skipLevels:0,showCreditsOnScreen:true,debugShowBoundingVolume:true }
+  );
+  viewer.scene.primitives.add(tileset)
   viewer.zoomTo(tileset);
   // 获取tileset的外包围球中心点
   // const boundingSphere = tileset.boundingSphere;
