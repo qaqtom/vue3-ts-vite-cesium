@@ -2,13 +2,18 @@
 import Load3dTiles from "./components/Load3dTiles.vue";
 import RainAndSnow from "./components/RainAndSnow.vue";
 import SnowGlobal from "./components/SnowGlobal.vue";
+import loadPNG from "./components/LoadPNG.vue"
+import loadTiff from './components/LoadTiff.vue'
 </script>
 
 <template>
   <!-- <Load3dTiles /> -->
   <!-- <RainAndSnow /> -->
-  <SnowGlobal />
+  <!-- <SnowGlobal /> -->
+  <loadPNG />
+  <!-- <loadTiff /> -->
 </template>
+
 
 <style>
 html,
